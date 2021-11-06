@@ -1,5 +1,5 @@
-import axios from "axios";
-import { apiUrl } from "../../constants";
+import axios from 'axios';
+import { apiUrl } from '../../constants';
 
 export const testAuth = async () => {
   try {
@@ -19,8 +19,7 @@ export const login = async (username, password, remember = false) => {
       remember: !!remember,
     });
 
-    // validate data and isAuthenticated = true if all right
-    return res.data;
+    return res.data.status === 'success';
   } catch (e) {
     console.error(e);
     return false;
@@ -33,7 +32,7 @@ export const register = async (
   lastName,
   email,
   username,
-  password
+  password,
 ) => {
   try {
     const res = await axios.post(`${apiUrl}/auth/register`, {
@@ -43,7 +42,7 @@ export const register = async (
       username,
       password,
     });
-    // Add user in db
+
     return res.data;
   } catch (e) {
     console.error(e);

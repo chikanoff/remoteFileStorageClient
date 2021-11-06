@@ -1,31 +1,35 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+// import { useSetRecoilState } from 'recoil';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
-import { useForm } from 'react-hook-form';
+import CssBaseline from '@mui/material/CssBaseline';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Copyright from '../Copyright';
-import { authState } from '../../atoms/auth';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
+// import { authState } from '../../atoms/auth';
 import { login } from '../../helpers/api/auth';
+import Copyright from '../Copyright';
 
 const theme = createTheme();
 
 export default function SignInPage() {
+  // const setIs
   const onSubmit = React.useCallback(
     async ({ username, password, remember }) => {
       const res = await login(username, password, remember);
-      console.log(res);
+      if (res) {
+        console.log(res.data);
+      }
     },
-    []
+    [],
   );
 
   const {
@@ -34,10 +38,9 @@ export default function SignInPage() {
     formState: { errors },
   } = useForm({ mode: 'onBlur' });
 
-  const q = 105;
   return (
     <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -50,11 +53,11 @@ export default function SignInPage() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component='h1' variant='h5'>
+          <Typography component="h1" variant="h5">
             Sign in
           </Typography>
           <Box
-            component='form'
+            component="form"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
             sx={{ mt: 1 }}
@@ -67,13 +70,13 @@ export default function SignInPage() {
                 pattern: /^\S+@\S+$/i,
               })}
               error={!!errors.username}
-              margin='normal'
+              margin="normal"
               required
               fullWidth
-              id='username'
-              label='Email Address'
-              name='username'
-              autoComplete='username'
+              id="username"
+              label="Email Address"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
 
@@ -84,41 +87,41 @@ export default function SignInPage() {
                 maxLength: 128,
               })}
               error={!!errors.password}
-              margin='normal'
+              margin="normal"
               required
               fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
             />
             <FormControlLabel
               control={
                 <Checkbox
                   {...register('remember', { default: false })}
-                  value='remember'
-                  color='primary'
+                  value="remember"
+                  color="primary"
                 />
               }
-              label='Remember me'
+              label="Remember me"
             />
             <Button
-              type='submit'
+              type="submit"
               fullWidth
-              variant='contained'
+              variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href='#' variant='body2'>
+                <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href='/signup' variant='body2'>
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
