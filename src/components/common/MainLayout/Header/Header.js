@@ -10,6 +10,7 @@ import HeaderSidebarOpenButton from './HeaderSidebarOpenButton';
 const Root = styled(AppBar, {
   shouldForwardProp: prop => prop !== 'open',
 })(({ theme, open }) => ({
+  height: theme.spacing(8),
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -30,7 +31,7 @@ const Header = () => {
   return (
     <Root open={sidebarOpen}>
       <FlexContainer centerY>
-        <HeaderSidebarOpenButton />
+        {!sidebarOpen && <HeaderSidebarOpenButton />}
         <FlexCentredBox xs={{ display: 'flex', alignItems: 'center' }}>
           <Typography component="h1">Heading</Typography>
         </FlexCentredBox>
