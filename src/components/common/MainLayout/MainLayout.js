@@ -17,24 +17,29 @@ const useStyles = makeStyles(() =>
   }),
 );
 
-const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
+const ContentWrapper = styled('div', {
+  shouldForwardProp: prop => prop !== 'open',
+})(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(8, 0),
+  transition: theme.transitions.create('margin', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
   }),
-);
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  }),
+}));
+
+const Main = styled.main`
+  height: 100%;
+  padding: ${props => props.theme.spacing(3)};
+`;
 
 const MainLayout = ({ children }) => {
   const classes = useStyles();
@@ -43,11 +48,11 @@ const MainLayout = ({ children }) => {
   return (
     <FullPageContainer className={classes.root}>
       <Sidebar />
-      <Main open={sidebarOpen}>
+      <ContentWrapper open={sidebarOpen}>
         <Header />
-        {children}
+        <Main>{children}</Main>
         <Footer />
-      </Main>
+      </ContentWrapper>
     </FullPageContainer>
   );
 };

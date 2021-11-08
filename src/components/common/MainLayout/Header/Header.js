@@ -7,7 +7,7 @@ import FlexCentredBox from '../../FlexCentredBox';
 import FlexContainer from '../../FlexContainer';
 import HeaderSidebarOpenButton from './HeaderSidebarOpenButton';
 
-const MainAppBar = styled(AppBar, {
+const Root = styled(AppBar, {
   shouldForwardProp: prop => prop !== 'open',
 })(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
@@ -28,14 +28,14 @@ const Header = () => {
   const sidebarOpen = useRecoilValue(sidebarOpenState);
 
   return (
-    <MainAppBar open={sidebarOpen}>
+    <Root open={sidebarOpen}>
       <FlexContainer centerY>
         <HeaderSidebarOpenButton />
         <FlexCentredBox xs={{ display: 'flex', alignItems: 'center' }}>
           <Typography component="h1">Heading</Typography>
         </FlexCentredBox>
       </FlexContainer>
-    </MainAppBar>
+    </Root>
   );
 };
 

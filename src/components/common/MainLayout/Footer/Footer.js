@@ -1,6 +1,8 @@
-import { Box } from '@mui/system';
+import styled from '@emotion/styled/macro';
 import React from 'react';
 
-const Footer = () => <Box>footer</Box>;
+const Root = styled.footer``;
+
+const Footer = () => <Root>footer</Root>;
 
 export default Footer;
