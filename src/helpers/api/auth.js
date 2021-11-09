@@ -49,3 +49,11 @@ export const register = async (
     return false;
   }
 };
+
+const authResource = {
+  login,
+  register,
+  testAuth,
+};
+
+export default authResource;
