@@ -1,19 +1,10 @@
 import { atom, selector } from 'recoil';
+import { testAuth } from '../helpers/api/auth';
 
-export const authState = atom({
-  default: {
-    isAuthenticated: false,
-    user: null,
-  },
-  key: 'authState',
-});
-
-export const isAuthenticatedState = selector({
-  get: ({ get }) => get(authState).isAuthenticated,
-  set: ({ set }, newValue) =>
-    set(authState, {
-      ...authState,
-      isAuthenticated: newValue,
-      user: newValue ? authState.user : null,
-    }),
+export const isAuthenticatedState = atom({
+  default: selector({
+    get: async () => await testAuth(),
+    key: 'isAuthenticatedState/Default',
+  }),
+  key: 'isAuthenticatedState',
 });
