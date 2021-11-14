@@ -1,6 +1,12 @@
 import React, { useCallback } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from 'react-router-dom';
 import authResource from '../helpers/api/auth';
+import ProtectedRoute from '../components/common/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SingInPage';
@@ -18,12 +24,9 @@ const MainRouter = () => {
           <Route path={['/signup', '/register']}>
             <SignUpPage />
           </Route>
-          {/* <ProtectedRoute path='/home'>
+          <ProtectedRoute path="/home">
             <HomePage />
-          </ProtectedRoute> */}
-          <Route>
-            <HomePage />
-          </Route>
+          </ProtectedRoute>
           <Route path="/">
             <button onClick={() => console.log(socket)}>socket</button>
             <button
@@ -34,6 +37,7 @@ const MainRouter = () => {
             >
               login
             </button>
+            <HomeBtn />
             <button onClick={authResource.testAuth}>testAuth</button>
             <button onClick={() => socket.emit('message', { text: 'hello' })}>
               message
@@ -43,6 +47,12 @@ const MainRouter = () => {
       </div>
     </Router>
   );
+};
+
+const HomeBtn = () => {
+  const history = useHistory();
+
+  return <button onClick={() => history.push('/home')}>go home</button>;
 };
 
 export default MainRouter;
