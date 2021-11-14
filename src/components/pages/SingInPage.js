@@ -1,5 +1,6 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,19 +15,21 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-// import { authState } from '../../atoms/auth';
+import { isAuthenticatedState } from '../../atoms/auth';
 import { login } from '../../helpers/api/auth';
 import Copyright from '../Copyright';
 
 const theme = createTheme();
 
 export default function SignInPage() {
-  // const setIs
+  const setIsAuthenticated = useSetRecoilState(isAuthenticatedState);
+  const history = useHistory();
   const onSubmit = React.useCallback(
     async ({ username, password, remember }) => {
       const res = await login(username, password, remember);
       if (res) {
-        console.log(res.data);
+        setIsAuthenticated(true);
+        history.push('/home');
       }
     },
     [],
@@ -65,9 +68,8 @@ export default function SignInPage() {
             <TextField
               {...register('username', {
                 required: true,
-                minLength: 6,
+                minLength: 4,
                 maxLength: 128,
-                pattern: /^\S+@\S+$/i,
               })}
               error={!!errors.username}
               margin="normal"
