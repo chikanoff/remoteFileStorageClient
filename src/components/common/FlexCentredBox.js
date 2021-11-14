@@ -5,6 +5,7 @@ const FlexCentredBox = styled(Box)`
   display: flex;
   jusify-content: center;
   align-items: center;
+  ${props => props.fullHeight && 'height: 100%;'}
 `;
 
 export default FlexCentredBox;
