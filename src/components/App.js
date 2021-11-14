@@ -16,7 +16,6 @@ function App() {
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <Box className="App">
-          x
           <CssBaseline />
           <MainRouter />
         </Box>

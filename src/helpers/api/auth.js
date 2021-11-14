@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { apiUrl } from '../../constants';
+import FetchAPI from './FetchAPI';
 
 export const testAuth = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/auth/isAuthenticated`);
+    const res = await FetchAPI.get(`/auth/isAuthenticated`);
     return res.data.is_authenticated;
   } catch (e) {
     console.error(e);
@@ -13,7 +12,7 @@ export const testAuth = async () => {
 
 export const fetchCurrentUser = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/auth/currentUser`);
+    const res = await FetchAPI.get(`/auth/currentUser`);
     return res.data;
   } catch (e) {
     console.error(e);
@@ -23,7 +22,7 @@ export const fetchCurrentUser = async () => {
 
 export const login = async (username, password, remember = false) => {
   try {
-    const res = await axios.post(`${apiUrl}/auth/login`, {
+    const res = await FetchAPI.post(`/auth/login`, {
       username,
       password,
       remember: !!remember,
@@ -45,7 +44,7 @@ export const register = async (
   password,
 ) => {
   try {
-    const res = await axios.post(`${apiUrl}/auth/register`, {
+    const res = await FetchAPI.post(`/auth/register`, {
       firstName,
       lastName,
       email,

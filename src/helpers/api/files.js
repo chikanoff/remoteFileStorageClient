@@ -1,10 +1,9 @@
-import axios from 'axios';
-import { apiUrl } from '../../constants';
+import FetchAPI from './FetchAPI';
 
 // admin only
 const all = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/adminFiles`);
+    const res = await FetchAPI.get(`/adminFiles`);
     return res.data;
   } catch (e) {
     console.error(e);
@@ -14,7 +13,7 @@ const all = async () => {
 
 const get = async fileId => {
   try {
-    const res = await axios.get(`${apiUrl}/files/${fileId}`);
+    const res = await FetchAPI.get(`/files/${fileId}`);
     return res.data;
   } catch (e) {
     console.error(e);
@@ -24,7 +23,7 @@ const get = async fileId => {
 
 const allPublic = async () => {
   try {
-    const res = await axios.get(`${apiUrl}/files`);
+    const res = await FetchAPI.get(`/files/all`);
     return res.data;
   } catch (e) {
     console.error(e);
@@ -34,7 +33,7 @@ const allPublic = async () => {
 
 const fromUser = async userId => {
   try {
-    const res = await axios.get(`${apiUrl}/filesFromUser/${userId}`);
+    const res = await FetchAPI.get(`/filesFromUser/${userId}`);
     return res.data;
   } catch (e) {
     console.error(e);
