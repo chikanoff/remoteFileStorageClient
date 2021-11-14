@@ -4,13 +4,15 @@ import { Box, CssBaseline } from '@mui/material';
 import MainRouter from './MainRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material';
-import { isAuthenticatedState } from '../atoms/auth';
+import { currentUserState, isAuthenticatedState } from '../atoms/auth';
+import axios from 'axios';
 
 function App() {
   const theme = createTheme();
   // the worst impl of pre-fetch I've come up with
-  // eslint-disable-next-line no-unused-vars
-  const isAuthenticated = useRecoilValue(isAuthenticatedState);
+  useRecoilValue(isAuthenticatedState);
+  useRecoilValue(currentUserState);
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
   return (
     <RecoilRoot>

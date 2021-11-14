@@ -11,6 +11,16 @@ export const testAuth = async () => {
   }
 };
 
+export const fetchCurrentUser = async () => {
+  try {
+    const res = await axios.get(`${apiUrl}/auth/currentUser`);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
 export const login = async (username, password, remember = false) => {
   try {
     const res = await axios.post(`${apiUrl}/auth/login`, {

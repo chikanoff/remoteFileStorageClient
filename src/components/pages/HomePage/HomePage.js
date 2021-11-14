@@ -2,6 +2,8 @@ import { Box } from '@mui/system';
 import MainLayout from '../../common/MainLayout/MainLayout';
 import Page from '../../common/Page';
 import { DataGrid } from '@mui/x-data-grid';
+import { useEffect } from 'react';
+import filesResource from '../../../helpers/api/files';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -52,13 +54,20 @@ function DataTable() {
   );
 }
 
-const HomePage = () => (
-  <Page pageTitle="Home">
-    <MainLayout>
-      <Box>home page</Box>
-      <DataTable />
-    </MainLayout>
-  </Page>
-);
+const HomePage = () => {
+  useEffect(async () => {
+    const res = await filesResource.allPublic();
+    console.log(res);
+  }, []);
+
+  return (
+    <Page pageTitle="Home">
+      <MainLayout>
+        <Box>home page</Box>
+        <DataTable />
+      </MainLayout>
+    </Page>
+  );
+};
 
 export default HomePage;

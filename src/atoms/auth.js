@@ -1,10 +1,18 @@
 import { atom, selector } from 'recoil';
-import { testAuth } from '../helpers/api/auth';
+import { testAuth, fetchCurrentUser } from '../helpers/api/auth';
+
+export const currentUserState = atom({
+  default: selector({
+    get: async () => await fetchCurrentUser(),
+    key: 'currentUser/Default',
+  }),
+  key: 'currentUser',
+});
 
 export const isAuthenticatedState = atom({
   default: selector({
     get: async () => await testAuth(),
-    key: 'isAuthenticatedState/Default',
+    key: 'isAuthenticated/Default',
   }),
-  key: 'isAuthenticatedState',
+  key: 'isAuthenticated',
 });
