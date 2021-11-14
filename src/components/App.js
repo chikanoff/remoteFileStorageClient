@@ -12,7 +12,7 @@ function App() {
   // the worst impl of pre-fetch I've come up with
   useRecoilValue(isAuthenticatedState);
   useRecoilValue(currentUserState);
-  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+  axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 
   return (
     <RecoilRoot>
