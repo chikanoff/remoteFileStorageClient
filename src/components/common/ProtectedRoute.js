@@ -1,15 +1,15 @@
 import { Route, Redirect } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { authState } from '../atoms/auth';
+import { isAuthenticatedState } from '../../atoms/auth';
 
 const ProtectedRoute = ({ children, ...rest }) => {
-  const auth = useRecoilValue(authState);
+  const isAuthenticated = useRecoilValue(isAuthenticatedState);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.isAuthenticated ? (
+        isAuthenticated ? (
           children
         ) : (
           <Redirect
