@@ -30,9 +30,9 @@ const Header = () => {
 
   return (
     <Root open={sidebarOpen}>
-      <FlexContainer centerY>
+      <FlexContainer fullHeight centerY>
         {!sidebarOpen && <HeaderSidebarOpenButton />}
-        <FlexCentredBox xs={{ display: 'flex', alignItems: 'center' }}>
+        <FlexCentredBox fullHeight xs={{ height: '100%' }}>
           <Typography component="h1">Heading</Typography>
         </FlexCentredBox>
       </FlexContainer>
