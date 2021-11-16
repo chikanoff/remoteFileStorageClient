@@ -26,10 +26,18 @@ const Sidebar = () => {
     >
       <SidebarHeader />
       <Box>
-        <Link href="/home">Home</Link>
-        <Link href="/userFiles">User Files</Link>
-        <Link href="/allFiles">Public Files</Link>
-        <Link href="">Logout</Link>
+        <Box>
+          <Link href="/home">Home</Link>
+        </Box>
+        <Box>
+          <Link href="/userFiles">User Files</Link>
+        </Box>
+        <Box>
+          <Link href="/allFiles">Public Files</Link>
+        </Box>
+        <Box>
+          <Link href="">Logout</Link>
+        </Box>
       </Box>
     </Drawer>
   );
