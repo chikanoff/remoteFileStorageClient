@@ -1,23 +1,30 @@
 import React from 'react';
-import { Container, Row, Column, FooterLink } from './FooterStyles';
+import { Container } from './FooterStyles';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+
+function Copyright() {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      padding="20px"
+    >
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const Footer = () => {
   return (
     <Container>
-      <Row>
-        <Column>
-          <FooterLink href="t.me/chikanoff">Telegram</FooterLink>
-        </Column>
-        <Column>
-          <FooterLink href="vk.com/danyachikanoff">VK</FooterLink>
-        </Column>
-        <Column>
-          <FooterLink href="github.com/chikanoff">Github</FooterLink>
-        </Column>
-        <Column>
-          <FooterLink href="youtube.com">Youtube</FooterLink>
-        </Column>
-      </Row>
+      <Copyright />
     </Container>
   );
 };
