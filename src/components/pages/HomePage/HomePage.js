@@ -29,9 +29,9 @@ import filesResource from '../../../helpers/api/files';
 // ];
 
 const fileColumns = [
-  { field: 'fileName', headerName: 'File Name', width: 150 },
-  { field: 'description', headerName: 'Description', width: 150 },
-  { field: 'mode', headerName: 'Mode', width: 150 },
+  { field: 'fileName', headerName: 'File Name', width: 250 },
+  { field: 'description', headerName: 'Description', width: 350 },
+  { field: 'mode', headerName: 'Mode', width: 170 },
 ];
 
 const rows = [
