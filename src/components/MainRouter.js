@@ -8,6 +8,7 @@ import {
 import authResource from '../helpers/api/auth';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import HomePage from './pages/HomePage';
+import UserPage from './pages/UserPage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SingInPage';
 
@@ -25,6 +26,12 @@ const MainRouter = () => {
             <SignUpPage />
           </Route>
           <ProtectedRoute path="/home">
+            <HomePage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/userFiles">
+            <UserPage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/allFiles">
             <HomePage />
           </ProtectedRoute>
           <Route path="/">

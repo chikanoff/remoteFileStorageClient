@@ -5,27 +5,33 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import filesResource from '../../../helpers/api/files';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: params =>
-      `${params.getValue(params.id, 'firstName') || ''} ${
-        params.getValue(params.id, 'lastName') || ''
-      }`,
-  },
+// const columns = [
+//   { field: 'id', headerName: 'ID', width: 70 },
+//   { field: 'firstName', headerName: 'First name', width: 130 },
+//   { field: 'lastName', headerName: 'Last name', width: 130 },
+//   {
+//     field: 'age',
+//     headerName: 'Age',
+//     type: 'number',
+//     width: 90,
+//   },
+//   {
+//     field: 'fullName',
+//     headerName: 'Full name',
+//     description: 'This column has a value getter and is not sortable.',
+//     sortable: false,
+//     width: 160,
+//     valueGetter: params =>
+//       `${params.getValue(params.id, 'firstName') || ''} ${
+//         params.getValue(params.id, 'lastName') || ''
+//       }`,
+//   },
+// ];
+
+const fileColumns = [
+  { field: 'fileName', headerName: 'File Name', width: 150 },
+  { field: 'description', headerName: 'Description', width: 150 },
+  { field: 'mode', headerName: 'Mode', width: 150 },
 ];
 
 const rows = [
@@ -45,7 +51,7 @@ function DataTable() {
     <div style={{ height: '100%', width: '100%' }}>
       <DataGrid
         rows={rows}
-        columns={columns}
+        columns={fileColumns}
         pageSize={8}
         rowsPerPageOptions={[5]}
         checkboxSelection

@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { sidebarOpenState } from '../../../../atoms/sidebar';
 import { drawerWidth } from '../../../../constants';
 import SidebarHeader from './SidebarHeader';
+import Link from '@mui/material/Link';
 
 const Sidebar = () => {
   const sidebarOpen = useRecoilValue(sidebarOpenState);
@@ -24,7 +25,12 @@ const Sidebar = () => {
       anchor="left"
     >
       <SidebarHeader />
-      <Box>sidebar</Box>
+      <Box>
+        <Link href="/home">Home</Link>
+        <Link href="/userFiles">User Files</Link>
+        <Link href="/allFiles">Public Files</Link>
+        <Link href="">Logout</Link>
+      </Box>
     </Drawer>
   );
 };

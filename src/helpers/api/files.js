@@ -3,7 +3,7 @@ import FetchAPI from './FetchAPI';
 // admin only
 const all = async () => {
   try {
-    const res = await FetchAPI.get(`/adminFiles`);
+    const res = await FetchAPI.get(`/files/adminFiles`);
     return res.data;
   } catch (e) {
     console.error(e);
@@ -31,9 +31,10 @@ const allPublic = async () => {
   }
 };
 
+// TODO: This
 const fromUser = async userId => {
   try {
-    const res = await FetchAPI.get(`/filesFromUser/${userId}`);
+    const res = await FetchAPI.get(`/files/filesFromUser/${userId}`);
     return res.data;
   } catch (e) {
     console.error(e);
