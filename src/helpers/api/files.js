@@ -32,9 +32,9 @@ const allPublic = async () => {
 };
 
 // TODO: This
-const fromUser = async userId => {
+const fromUser = async () => {
   try {
-    const res = await FetchAPI.get(`/files/filesFromUser/${userId}`);
+    const res = await FetchAPI.get(`/files/filesFromUser`);
     return res.data;
   } catch (e) {
     console.error(e);
