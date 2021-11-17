@@ -14,16 +14,17 @@ const fileColumns = [
 ];
 
 function DataTable() {
-  const [fileRows, setFileRows] = useState([]);
+  const [userFileRows, setUserFileRows] = useState([]);
   useEffect(async () => {
     const res = await filesResource.fromUser();
-    setFileRows(res);
+    console.log(res);
+    setUserFileRows(res);
   }, []);
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <DataGrid
-        rows={fileRows}
+        rows={userFileRows}
         columns={fileColumns}
         pageSize={8}
         rowsPerPageOptions={[5]}
@@ -35,14 +36,14 @@ function DataTable() {
 
 const UserPage = () => {
   return (
-    <Page pageTitle="Home">
+    <Page pageTitle="User">
       <MainLayout>
         <Box>
           <Button variant="outlined" startIcon={<DeleteIcon />}>
             Delete
           </Button>
         </Box>
-        <Box>
+        <Box height="100%">
           <DataTable />
         </Box>
       </MainLayout>
