@@ -14,9 +14,11 @@ import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SingInPage';
 import { io } from 'socket.io-client';
 import { saveAs } from 'file-saver';
+import useLogout from '../hooks/useLogout';
 
 const socket = io.connect('/');
 const MainRouter = () => {
+  const logout = useLogout();
   return (
     <Router>
       <div className="App">
@@ -106,6 +108,7 @@ const MainRouter = () => {
             >
               message
             </button>
+            <button onClick={logout}>logout</button>
           </Route>
         </Switch>
       </div>
