@@ -22,21 +22,45 @@ const Sidebar = () => {
       }}
       open={sidebarOpen}
       variant="persistent"
-      anchor="left"
+      anchor="center"
     >
       <SidebarHeader />
       <Box>
-        <Box>
-          <Link href="/home">Home</Link>
+        <Box marginTop="10px">
+          <Link
+            marginLeft="20px"
+            style={{ textDecoration: 'none' }}
+            href="/home"
+          >
+            Home
+          </Link>
         </Box>
-        <Box>
-          <Link href="/userFiles">User Files</Link>
+        <Box marginTop="10px">
+          <Link
+            marginLeft="20px"
+            style={{ textDecoration: 'none' }}
+            href="/userFiles"
+          >
+            User Files
+          </Link>
         </Box>
-        <Box>
-          <Link href="/allFiles">Public Files</Link>
+        <Box marginTop="10px">
+          <Link
+            marginLeft="20px"
+            style={{ textDecoration: 'none' }}
+            href="/allFiles"
+          >
+            Public Files
+          </Link>
         </Box>
-        <Box>
-          <Link href="">Logout</Link>
+        <Box marginTop="10px">
+          <Link
+            marginLeft="20px"
+            style={{ textDecoration: 'none' }}
+            href="/logout"
+          >
+            Logout
+          </Link>
         </Box>
       </Box>
     </Drawer>

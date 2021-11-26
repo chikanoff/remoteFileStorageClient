@@ -8,12 +8,14 @@ import {
 import authResource from '../helpers/api/auth';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import HomePage from './pages/HomePage';
+import PublicPage from './pages/PublicPage';
 import UserPage from './pages/UserPage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SingInPage';
+import { io } from 'socket.io-client';
+import { saveAs } from 'file-saver';
 
-// const socket = io.connect('/');
-const socket = {};
+const socket = io.connect('/');
 const MainRouter = () => {
   return (
     <Router>
@@ -25,20 +27,20 @@ const MainRouter = () => {
           <Route path={['/signup', '/register']}>
             <SignUpPage />
           </Route>
-          <ProtectedRoute path="/home">
+          <Route path="/home">
             <HomePage />
-          </ProtectedRoute>
+          </Route>
           <ProtectedRoute path="/userFiles">
             <UserPage />
           </ProtectedRoute>
           <ProtectedRoute path="/allFiles">
-            <HomePage />
+            <PublicPage />
           </ProtectedRoute>
           <Route path="/">
             <button onClick={() => console.log(socket)}>socket</button>
             <button
               onClick={useCallback(
-                () => authResource.login('user', 'password'),
+                () => authResource.login('amostyn3', 'R0tkwSvmA'),
                 [],
               )}
             >
@@ -46,7 +48,62 @@ const MainRouter = () => {
             </button>
             <HomeBtn />
             <button onClick={authResource.testAuth}>testAuth</button>
-            <button onClick={() => socket.emit('message', { text: 'hello' })}>
+
+            <button
+              onClick={() => {
+                socket.emit('get_file', { data: 12 });
+                socket.on('your-file', function (data) {
+                  const buf = data['data'];
+                  const name = data['name'];
+                  const ext = data['ext'];
+                  if (ext == '.jpg' || ext == '.jpeg') {
+                    saveAs(
+                      new File([buf], name + ext, {
+                        type: 'image/jpeg',
+                      }),
+                    );
+                  } else {
+                    saveAs(
+                      new File([buf], name + ext, {
+                        type: 'text/plain;charset=utf-8',
+                      }),
+                    );
+                  }
+                });
+              }}
+            >
+              download file
+            </button>
+            <button
+              onClick={() => {
+                socket.emit('get_file', { data: 12 });
+                socket.on('your-file', function (data) {
+                  const buf = data['data'];
+                  const name = data['name'];
+                  const ext = data['ext'];
+                  if (ext == '.jpg' || ext == '.jpeg') {
+                    saveAs(
+                      new File([buf], name + ext, {
+                        type: 'image/jpeg',
+                      }),
+                    );
+                  } else {
+                    saveAs(
+                      new File([buf], name + ext, {
+                        type: 'text/plain;charset=utf-8',
+                      }),
+                    );
+                  }
+                });
+              }}
+            >
+              upload file
+            </button>
+            <button
+              onClick={() => {
+                socket.emit('message', { text: 'message' });
+              }}
+            >
               message
             </button>
           </Route>

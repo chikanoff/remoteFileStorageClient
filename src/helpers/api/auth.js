@@ -3,6 +3,7 @@ import FetchAPI from './FetchAPI';
 export const testAuth = async () => {
   try {
     const res = await FetchAPI.get(`/auth/isAuthenticated`);
+    console.log(res.data.is_authenticated);
     return res.data.is_authenticated;
   } catch (e) {
     console.error(e);

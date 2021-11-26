@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box } from '@mui/system';
 import MainLayout from '../../common/MainLayout/MainLayout';
 import Page from '../../common/Page';
@@ -13,38 +14,47 @@ const fileColumns = [
   { field: 'mode', headerName: 'Mode', width: 170 },
 ];
 
-function DataTable() {
+const UserPage = () => {
+  const [selectedRow, setSelectedRow] = React.useState(null);
   const [userFileRows, setUserFileRows] = useState([]);
   useEffect(async () => {
     const res = await filesResource.fromUser();
     console.log(res);
     setUserFileRows(res);
   }, []);
-
-  return (
-    <div style={{ height: '100%', width: '100%' }}>
-      <DataGrid
-        rows={userFileRows}
-        columns={fileColumns}
-        pageSize={8}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
-  );
-}
-
-const UserPage = () => {
   return (
     <Page pageTitle="User">
       <MainLayout>
         <Box>
-          <Button variant="outlined" startIcon={<DeleteIcon />}>
+          <Button
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            onClick={() => {
+              if (selectedRow != null) {
+                filesResource.deleteFile(selectedRow);
+                setSelectedRow(null);
+              } else {
+                alert('Please select a row');
+              }
+            }}
+          >
             Delete
           </Button>
         </Box>
         <Box height="100%">
-          <DataTable />
+          <DataGrid
+            rows={userFileRows}
+            columns={fileColumns}
+            pageSize={8}
+            rowsPerPageOptions={[5]}
+            hideFooterSelectedRowCount
+            disableColumnSelector
+            disableCellSelector
+            rowSelection="single"
+            onSelectionModelChange={ids => {
+              setSelectedRow(ids['0']);
+            }}
+          />
         </Box>
       </MainLayout>
     </Page>

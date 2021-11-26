@@ -42,11 +42,22 @@ const fromUser = async () => {
   }
 };
 
+const deleteFile = async fileId => {
+  try {
+    const res = await FetchAPI.delete(`/files/${fileId}`);
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+};
+
 const filesResource = {
   get,
   all,
   allPublic,
   fromUser,
+  deleteFile,
 };
 
 export default filesResource;
