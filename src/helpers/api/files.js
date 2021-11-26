@@ -52,12 +52,23 @@ const deleteFile = async fileId => {
   }
 };
 
+const deleteFiles = async fileIds => {
+  try {
+    const res = await FetchAPI.delete(`/files/deleteMany`, { data: fileIds });
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
 const filesResource = {
   get,
   all,
   allPublic,
   fromUser,
   deleteFile,
+  deleteFiles,
 };
 
 export default filesResource;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Box } from '@mui/system';
 import MainLayout from '../../common/MainLayout/MainLayout';
 import Page from '../../common/Page';
@@ -15,13 +15,23 @@ const fileColumns = [
 ];
 
 const UserPage = () => {
-  const [selectedRow, setSelectedRow] = React.useState(null);
+  const [selectedRows, setSelctedRows] = useState([]);
   const [userFileRows, setUserFileRows] = useState([]);
+
   useEffect(async () => {
     const res = await filesResource.fromUser();
     console.log(res);
     setUserFileRows(res);
   }, []);
+
+  const deleteSelectedFiles = useCallback(() => {
+    // filesResource.deleteFiles(selectedRows);
+    setUserFileRows(
+      userFileRows.filter(({ id }) => !selectedRows.includes(id)),
+    );
+    setSelctedRows([]);
+  }, [selectedRows, setUserFileRows, setSelctedRows]);
+
   return (
     <Page pageTitle="User">
       <MainLayout>
@@ -29,14 +39,7 @@ const UserPage = () => {
           <Button
             variant="outlined"
             startIcon={<DeleteIcon />}
-            onClick={() => {
-              if (selectedRow != null) {
-                filesResource.deleteFile(selectedRow);
-                setSelectedRow(null);
-              } else {
-                alert('Please select a row');
-              }
-            }}
+            onClick={deleteSelectedFiles}
           >
             Delete
           </Button>
@@ -46,14 +49,8 @@ const UserPage = () => {
             rows={userFileRows}
             columns={fileColumns}
             pageSize={8}
-            rowsPerPageOptions={[5]}
-            hideFooterSelectedRowCount
-            disableColumnSelector
-            disableCellSelector
-            rowSelection="single"
-            onSelectionModelChange={ids => {
-              setSelectedRow(ids['0']);
-            }}
+            checkboxSelection
+            onSelectionModelChange={ids => setSelctedRows(ids)}
           />
         </Box>
       </MainLayout>
