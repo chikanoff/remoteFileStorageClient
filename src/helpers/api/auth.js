@@ -36,7 +36,16 @@ export const login = async (username, password, remember = false) => {
   }
 };
 
-// TODO
+export const logout = async () => {
+  try {
+    await FetchAPI.post(`/auth/logout`);
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
 export const register = async (
   firstName,
   lastName,
@@ -62,6 +71,7 @@ export const register = async (
 
 const authResource = {
   login,
+  logout,
   register,
   testAuth,
 };
