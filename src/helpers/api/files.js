@@ -54,8 +54,8 @@ const deleteFile = async fileId => {
 
 const deleteFiles = async fileIds => {
   try {
-    const res = await FetchAPI.delete(`/files/deleteMany`, { data: fileIds });
-    return res.data;
+    Promise.all(fileIds.map(i => deleteFile(i)));
+    return true;
   } catch (e) {
     console.error(e);
     return false;
