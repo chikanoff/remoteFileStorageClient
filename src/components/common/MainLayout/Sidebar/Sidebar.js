@@ -6,10 +6,11 @@ import { sidebarOpenState } from '../../../../atoms/sidebar';
 import { drawerWidth } from '../../../../constants';
 import SidebarHeader from './SidebarHeader';
 import Link from '@mui/material/Link';
+import useLogout from '../../../../hooks/useLogout';
 
 const Sidebar = () => {
   const sidebarOpen = useRecoilValue(sidebarOpenState);
-
+  // const logout = useLogout();
   return (
     <Drawer
       sx={{
@@ -57,7 +58,16 @@ const Sidebar = () => {
           <Link
             marginLeft="20px"
             style={{ textDecoration: 'none' }}
-            href="/logout"
+            href="/uploadfile"
+          >
+            Upload file
+          </Link>
+        </Box>
+        <Box marginTop="10px">
+          <Link
+            marginLeft="20px"
+            style={{ textDecoration: 'none' }}
+            onClick={useLogout()}
           >
             Logout
           </Link>
