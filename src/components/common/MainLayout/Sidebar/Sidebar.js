@@ -7,10 +7,15 @@ import { drawerWidth } from '../../../../constants';
 import SidebarHeader from './SidebarHeader';
 import Link from '@mui/material/Link';
 import useLogout from '../../../../hooks/useLogout';
+import { currentUserState } from '../../../../atoms/auth';
+import { useHistory } from 'react-router';
 
 const Sidebar = () => {
   const sidebarOpen = useRecoilValue(sidebarOpenState);
-  // const logout = useLogout();
+  const currentUser = useRecoilValue(currentUserState);
+  const history = useHistory();
+  const logout = useLogout();
+
   return (
     <Drawer
       sx={{
@@ -31,7 +36,7 @@ const Sidebar = () => {
           <Link
             marginLeft="20px"
             style={{ textDecoration: 'none' }}
-            href="/home"
+            onClick={() => history.push('/home')}
           >
             Home
           </Link>
@@ -40,7 +45,7 @@ const Sidebar = () => {
           <Link
             marginLeft="20px"
             style={{ textDecoration: 'none' }}
-            href="/userFiles"
+            onClick={() => history.push('/userFiles')}
           >
             User Files
           </Link>
@@ -49,7 +54,7 @@ const Sidebar = () => {
           <Link
             marginLeft="20px"
             style={{ textDecoration: 'none' }}
-            href="/allFiles"
+            onClick={() => history.push('/allFiles')}
           >
             Public Files
           </Link>
@@ -58,16 +63,27 @@ const Sidebar = () => {
           <Link
             marginLeft="20px"
             style={{ textDecoration: 'none' }}
-            href="/uploadfile"
+            onClick={() => history.push('/upload')}
           >
             Upload file
           </Link>
         </Box>
+        {currentUser?.isAdmin && (
+          <Box marginTop="10px">
+            <Link
+              marginLeft="20px"
+              style={{ textDecoration: 'none' }}
+              onClick={() => history.push('/adminFiles')}
+            >
+              Admin files
+            </Link>
+          </Box>
+        )}
         <Box marginTop="10px">
           <Link
             marginLeft="20px"
             style={{ textDecoration: 'none' }}
-            onClick={useLogout()}
+            onClick={logout}
           >
             Logout
           </Link>

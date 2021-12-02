@@ -8,6 +8,8 @@ export const allFilesState = atom({
 
 export const currentUserFilesState = selector({
   get: ({ get }) =>
-    get(allFilesState).filter(f => f.owner.username === get(currentUserState)),
+    get(allFilesState).filter(
+      f => f.owner.username === get(currentUserState)?.username,
+    ),
   key: 'userFiles',
 });

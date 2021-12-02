@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Box } from '@mui/system';
 import MainLayout from '../../common/MainLayout/MainLayout';
 import Page from '../../common/Page';
@@ -6,15 +7,14 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import { io } from 'socket.io-client';
-
-const socket = io.connect('/');
+import { socketState } from '../../../atoms/socket';
 
 const UploadPage = () => {
   const [file, setFile] = useState();
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [isPrivate, setIsPrivate] = useState(true);
+  const socket = useRecoilValue(socketState);
 
   const uploadFile = async () => {
     await socket.emit('upload-file', {

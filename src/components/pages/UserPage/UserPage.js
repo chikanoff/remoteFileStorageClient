@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Box } from '@mui/system';
 import MainLayout from '../../common/MainLayout/MainLayout';
 import Page from '../../common/Page';
@@ -8,8 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import { useEffect, useState } from 'react';
 import filesResource from '../../../helpers/api/files';
-import { io } from 'socket.io-client';
-import { saveAs } from 'file-saver';
+import { socketState } from '../../../atoms/socket';
 
 const fileColumns = [
   { field: 'name', headerName: 'File Name', width: 250 },
@@ -17,37 +17,13 @@ const fileColumns = [
   { field: 'mode', headerName: 'Mode', width: 170 },
 ];
 
-const socket = io.connect('/');
-
-const saveFiles = id => {
-  socket.emit('get_file', { data: id });
-  socket.on('your-file', function (data) {
-    const buf = data['data'];
-    const name = data['name'];
-    const ext = data['ext'];
-    if (ext == '.jpg' || ext == '.jpeg') {
-      saveAs(
-        new File([buf], name + ext, {
-          type: 'image/jpeg',
-        }),
-      );
-    } else {
-      saveAs(
-        new File([buf], name + ext, {
-          type: 'text/plain;charset=utf-8',
-        }),
-      );
-    }
-  });
-};
-
 const UserPage = () => {
   const [selectedRows, setSelctedRows] = useState([]);
   const [userFileRows, setUserFileRows] = useState([]);
+  const socket = useRecoilValue(socketState);
 
   useEffect(async () => {
     const res = await filesResource.fromUser();
-    console.log(res);
     setUserFileRows(res);
   }, []);
 
@@ -59,9 +35,10 @@ const UserPage = () => {
     setSelctedRows([]);
   }, [selectedRows, setUserFileRows, setSelctedRows]);
 
+  // eslint-disable-next-line no-unused-vars
   const downloadFiles = useCallback(() => {
-    Promise.all(selectedRows.map(i => saveFiles(i)));
-    setSelctedRows([]);
+    console.log('#qw2', socket);
+    selectedRows.forEach(id => socket.emit('get_file', { data: id }));
   }, [selectedRows, setSelctedRows]);
 
   return (

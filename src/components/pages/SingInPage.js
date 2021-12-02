@@ -1,5 +1,5 @@
+import React, { useCallback } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useSetRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -13,27 +13,21 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { isAuthenticatedState } from '../../atoms/auth';
-import { login } from '../../helpers/api/auth';
+import useLogin from '../../hooks/useLogin';
 import Copyright from '../Copyright';
 
 const theme = createTheme();
 
 export default function SignInPage() {
-  const setIsAuthenticated = useSetRecoilState(isAuthenticatedState);
+  const login = useLogin();
   const history = useHistory();
-  const onSubmit = React.useCallback(
-    async ({ username, password, remember }) => {
-      const res = await login(username, password, remember);
-      if (res) {
-        setIsAuthenticated(true);
-        history.push('/home');
-      }
-    },
-    [],
-  );
+  const onSubmit = useCallback(async ({ username, password, remember }) => {
+    const res = await login(username, password, remember);
+    if (res) {
+      history.push('/home');
+    }
+  }, []);
 
   const {
     handleSubmit,

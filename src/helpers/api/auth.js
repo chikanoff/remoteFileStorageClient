@@ -28,8 +28,8 @@ export const login = async (username, password, remember = false) => {
       password,
       remember: !!remember,
     });
-
-    return res.data.status === 'success';
+    const { status, ...data } = res.data;
+    return status === 'success' && data;
   } catch (e) {
     console.error(e);
     return false;
