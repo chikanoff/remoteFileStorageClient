@@ -16,18 +16,20 @@ function App() {
   const setCurrentUser = useSetRecoilState(currentUserState);
 
   useEffect(() => {
-    socket.on('your-file', function (data) {
-      const { buf, name, ext } = data;
-
+    socket.on('your-file', function (dt) {
+      const { data, ext, name } = dt;
+      console.log(ext);
+      console.log(name);
+      console.log(data);
       if (ext == '.jpg' || ext == '.jpeg') {
         saveAs(
-          new File([buf], name + ext, {
+          new File([data], name + ext, {
             type: 'image/jpeg',
           }),
         );
       } else {
         saveAs(
-          new File([buf], name + ext, {
+          new File([data], name + ext, {
             type: 'text/plain;charset=utf-8',
           }),
         );

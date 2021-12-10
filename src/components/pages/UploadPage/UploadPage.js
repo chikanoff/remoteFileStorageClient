@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import { socketState } from '../../../atoms/socket';
+import { currentUserState } from '../../../atoms/auth';
 
 const UploadPage = () => {
   const [file, setFile] = useState();
@@ -15,6 +16,7 @@ const UploadPage = () => {
   const [desc, setDesc] = useState('');
   const [isPrivate, setIsPrivate] = useState(true);
   const socket = useRecoilValue(socketState);
+  const currentUser = useRecoilValue(currentUserState);
 
   const uploadFile = async () => {
     await socket.emit('upload-file', {
@@ -23,6 +25,7 @@ const UploadPage = () => {
       ext: file.name.split('.')[file.name.split('.').length - 1],
       desc: desc,
       isPriv: isPrivate,
+      currUser: currentUser.username,
     });
   };
 

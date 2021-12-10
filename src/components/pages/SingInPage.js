@@ -79,7 +79,7 @@ export default function SignInPage() {
             <TextField
               {...register('password', {
                 required: true,
-                minLength: 6,
+                minLength: 4,
                 maxLength: 128,
               })}
               error={!!errors.password}
